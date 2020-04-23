@@ -141,7 +141,6 @@ export class MainEffects {
           res.body.trans_token.map((t)=>{
             return <TransactionResultModel>{date:t.date, dateVal:new Date(t.date), username:t.username, amount:t.amount, balance:t.balance }
           }).sort((t1,t2)=>{
-            console.log(t2.dateVal-t1.dateVal);
             return t2.dateVal-t1.dateVal;
           }));
     })
