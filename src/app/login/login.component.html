@@ -1,0 +1,44 @@
+<div>
+  <form *ngIf="!registerMode" [formGroup]="formLogin" (ngSubmit)="formLoginSubmit()" [ngClass]="{'show-invalid-border':formLoginVars.ShowInvalid}" >
+    <h2>Log In</h2>
+    <label>Email address</label>
+    <input formControlName="email" type="email" class="ui-inputtext ui-corner-all border-on-validation" tabindex="1">
+    <div class="form-delim"></div>
+
+    <label>Password</label>
+    <input formControlName="password" type="password" class="ui-inputtext ui-corner-all border-on-validation" tabindex="2" autocomplete="new-password">
+
+    <div class="form-delim"></div>
+
+    <button pButton type="button" class="mr" label="Log In" type="submit" tabindex="3" [disabled]="formLoginVars.isSending"></button>
+    <button pButton type="button" label="Create account" class="ui-button-secondary" (click)="registerMode=true" tabindex="4" [disabled]="formLoginVars.isSending" ></button>
+    <div class="form-delim"></div>
+
+    <div class="validation-msg" *ngFor="let m of formLoginVars.messages">{{m}}</div>
+  </form>
+
+  <form *ngIf="registerMode" [formGroup]="formRegister" (ngSubmit)="formRegisterSubmit()" [ngClass]="{'show-invalid-border':formRegisterVars.ShowInvalid}">
+    <h2>New account</h2>
+    <label>Email address</label>
+    <input formControlName="email" type="email" class="ui-inputtext ui-corner-all border-on-validation" tabindex="1">
+    <div class="form-delim"></div>
+
+    <label>Name (use to identify)</label>
+    <input formControlName="name" type="text" class="ui-inputtext ui-corner-all border-on-validation" tabindex="2">
+    <div class="form-delim"></div>
+
+    <label>Password</label>
+    <input formControlName="password" type="password" class="ui-inputtext ui-corner-all border-on-validation" tabindex="3" autocomplete="new-password">
+    <div class="form-delim"></div>
+
+    <label>Password repeat</label>
+    <input formControlName="passwordRepeat" type="password" class="ui-inputtext ui-corner-all border-on-validation" tabindex="4" autocomplete="new-password">
+    <div class="form-delim"></div>
+
+    <button pButton type="button" class="mr" label="Create account" type="submit" tabindex="5" [disabled]="formRegisterVars.isSending"></button>
+    <button pButton type="button" label="Log In" class="ui-button-secondary" (click)="registerMode=false" tabindex="6" [disabled]="formRegisterVars.isSending"></button>
+    <div class="form-delim"></div>
+
+    <div class="validation-msg" *ngFor="let m of formRegisterVars.messages">{{m}}</div>
+  </form>
+</div>

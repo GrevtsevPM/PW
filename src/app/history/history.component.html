@@ -1,0 +1,15 @@
+<app-header></app-header>
+
+<h2>History</h2>
+
+<table class="history">
+  <tr>
+    <th>Date</th><th>User Name</th><th>Amount</th><th>Balance</th>
+  </tr>
+  <tr *ngFor="let t of transactions">
+    <td>{{t.date}}</td>
+    <td>{{t.username}}</td>
+    <td>{{t.amount}}</td>
+    <td>{{t.balance.toFixed(2)}}</td>
+  </tr>
+</table>

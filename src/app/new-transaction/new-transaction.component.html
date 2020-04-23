@@ -1,0 +1,21 @@
+<app-header></app-header>
+
+<h2>New transaction</h2>
+
+<div [ngClass]="{'show-invalid-border':formTransactionVars.ShowInvalid}">
+  <form #formTransactionRef="ngForm" >
+    <label>Recipient name</label>
+    <p-autoComplete name="name" [(ngModel)]="recipientName" [suggestions]="recipientSuggestions" required
+    (completeMethod)="recipientSearch($event)" [size]="10"
+    (onKeyUp)="recipientOnChange()" (onSelect)="recipientOnChange()" tabindex="1"></p-autoComplete>
+    <div class="form-delim"></div>
+    <label>Amount</label>
+    <input name="amount" [(ngModel)]="amount" type="number" class="ui-inputtext ui-corner-all border-on-validation" tabindex="2" required />
+    <div class="form-delim"></div>
+    <button pButton type="button" class="mr" label="Send" tabindex="3" (click)="formTransactionSubmit()"></button>
+  </form>
+
+  <div class="form-delim"></div>
+  <div class="validation-msg" *ngIf="formTransactionVars.lastTransactionInfoMsg.length>0">{{formTransactionVars.lastTransactionInfoMsg}}</div>
+  <div class="validation-msg" *ngFor="let m of formTransactionVars.messages">{{m}}</div>
+</div>

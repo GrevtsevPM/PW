@@ -1,0 +1,10 @@
+<header>
+  <button pButton type="button" label="Logout" class="ui-button-secondary mr" (click)="logout()" ></button>
+  <button pButton type="button" label="History" class="ui-button-secondary mr" (click)="history()" ></button>
+  <button pButton type="button" label="New transaction" class="ui-button-secondary" (click)="transaction()" ></button>
+
+  <div class="info">
+    <span class="username">{{username}}</span>
+    <span class="balance">Balance: <b>{{balance}}</b></span>
+  </div>
+</header>

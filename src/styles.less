@@ -1,1 +1,115 @@
-/* You can add global styles to this file, and also import other style files */
+@colorErrorText:#940000;
+@colorInvalid:#e40000;
+
+body{
+  font-size:15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+  font-size:1.5em;
+  background: #8bc34a52;
+}
+h2 {font-size: 1.3em;}
+
+div.main{
+  width: 100%;
+  max-width: 600px;
+  min-width: 555px;
+  position: relative;
+  margin: 0 auto;
+}
+
+label{
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1em;
+}
+
+input[type=text], input[type=email], input[type=password], input[type=number]{
+  width:255px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+div.form-delim{
+  height: 14px;
+}
+
+span.a{
+  cursor: pointer;
+  text-decoration: underline;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+span.a1{
+  font-size: 1.5em;
+}
+
+button.mr{
+  margin-right: .5em!important;
+}
+
+.show-invalid-border{
+  input.border-on-validation.ng-invalid, .ng-invalid input{
+    border-color:@colorInvalid!important;
+  }
+}
+
+div.error-info{
+  margin:14px 0;
+  color: @colorErrorText;
+}
+
+div.validation-msg{
+  margin-bottom: 7px;
+}
+
+header{
+  position: relative;
+  div.info{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
+
+    span.username{
+      position: absolute;
+      top: 18px;
+      right: 0;
+    }
+
+    span.balance{
+      text-align: right;
+      position: absolute;
+      right: 0;
+      top: -3px;
+
+    }
+  }
+}
+
+table.history{
+  border-spacing: 0;
+  width:100%;
+  th, td{
+    text-align: left;
+    padding: 5px 20px 5px 0;
+    border-bottom: solid 1px #dddddd;
+  }
+
+  td:nth-child(1){
+    width:220px;
+  }
+  td:nth-child(3),th:nth-child(3){
+    text-align: right;
+    width:90px;
+  }
+  td:nth-child(4),th:nth-child(4){
+    width:100px;
+    text-align: right;
+    padding-right: 0;
+  }
+}
