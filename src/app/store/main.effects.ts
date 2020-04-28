@@ -19,6 +19,7 @@ export class MainEffects {
 
   updateBalanceTimer:Subscription;
 
+  //отправка формы логина на сервер
   @Effect()
   login = this.actions$.pipe(
     ofType(mainActions.LOGIN_START),
@@ -39,6 +40,7 @@ export class MainEffects {
     })
   );
 
+  //успешный логин
   @Effect()
   loginSuccess = this.actions$.pipe(
     ofType(mainActions.LOGIN_SUCCESS, mainActions.REGISTER_SUCCESS),
@@ -49,6 +51,7 @@ export class MainEffects {
       return new mainActions.LoggedUserInfoStart(null);
     }));
 
+  //отправка формы регистрации на сервер
   @Effect()
   register = this.actions$.pipe(
     ofType(mainActions.REGISTER_START),
@@ -69,6 +72,7 @@ export class MainEffects {
     })
   );
 
+  //получение информации о юзере
   @Effect()
   userInfo = this.actions$.pipe(
     ofType(mainActions.LOGGED_USER_INFO_START),
@@ -85,6 +89,7 @@ export class MainEffects {
     })
   );
 
+  //отправка транзакции на сервер
   @Effect()
   transaction = this.actions$.pipe(
     ofType(mainActions.TRANSACTION_START),
@@ -101,10 +106,11 @@ export class MainEffects {
         else return new mainActions.TransactionFail(NewTransactionStateEnum.Error);
       }
 
-      return new mainActions.TransactionSuccess({ date:res.body.trans_token.date, dateVal:null, username:res.body.trans_token.username, amount:res.body.trans_token.amount, balance:res.body.trans_token.balance  });
+      return new mainActions.TransactionSuccess({ id:res.body.trans_token.id, date:res.body.trans_token.date, dateVal:null, username:res.body.trans_token.username, amount:res.body.trans_token.amount, balance:res.body.trans_token.balance  });
     })
   );
 
+  //транзакция успешно
   @Effect()
   transactionSuccess = this.actions$.pipe(
     ofType(mainActions.TRANSACTION_SUCCESS),
@@ -112,18 +118,20 @@ export class MainEffects {
       return new mainActions.LoggedUserInfoStart(null);
     }));
 
+  //выход
   @Effect()
   logout = this.actions$.pipe(
     ofType(mainActions.LOGOUT),
     tap((action:Action)=>{
       console.log('effect', action.type, action);
       this.server.clearErrorText(); }),
-    map((res:any)=>{
+    map(()=>{
       if(this.updateBalanceTimer)this.updateBalanceTimer.unsubscribe()
       return new mainActions.STOP_ACTION();
     }
   ));
 
+  //получение истории транзакций с сервера
   @Effect()
   loggedUserTransactions = this.actions$.pipe(
     ofType(mainActions.LOGGED_USER_TRANSACTIONS_START),
@@ -137,11 +145,9 @@ export class MainEffects {
         return new mainActions.LoggedUserTransactionsFail(null);
       }else
         return new mainActions.LoggedUserTransactionsSuccess(
-          res.body.trans_token.map((t)=>{
-            return <TransactionResultModel>{date:t.date, dateVal:new Date(t.date), username:t.username, amount:t.amount, balance:t.balance }
-          }).sort((t1,t2)=>{
-            return t2.dateVal-t1.dateVal;
-          }));
+          res.body.trans_token.map((t)=>
+          <TransactionResultModel>{ date: t.date, dateVal: new Date(t.date), username: t.username, amount: t.amount, balance: t.balance })
+          .sort((t1,t2)=>t2.dateVal - t1.dateVal));
     })
   );
 }

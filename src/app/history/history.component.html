@@ -6,7 +6,7 @@
   <tr>
     <th>Date</th><th>User Name</th><th>Amount</th><th>Balance</th>
   </tr>
-  <tr *ngFor="let t of transactions">
+  <tr *ngFor="let t of transactions; trackBy:transactionsTrackBy;">
     <td>{{t.date}}</td>
     <td>{{t.username}}</td>
     <td>{{t.amount}}</td>

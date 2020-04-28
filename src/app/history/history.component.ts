@@ -31,4 +31,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.stateSubscription.unsubscribe();
   }
 
+  transactionsTrackBy(t){
+    return t.id;
+  }
+
 }

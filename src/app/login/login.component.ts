@@ -14,18 +14,22 @@ import { LoginStateEnum, RegisterStateEnum } from '../data-types/enums';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor(private server: ServerService, private router:Router, private store:Store<mainReducer.State>) { }
+  constructor(private router:Router, private store:Store<mainReducer.State>) { }
 
   registerMode:boolean = false;
 
+  //форма Логина
   formLogin: FormGroup;
+  //переменные формы Логина
   formLoginVars = {
     ShowInvalid: false,
     isSending: false,
     messages:[]
   };
 
+  //форма регистрации
   formRegister: FormGroup;
+  //переменные формы регистрации
   formRegisterVars = {
     ShowInvalid: false,
     isSending: false,
@@ -47,8 +51,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       'passwordRepeat':new FormControl(null, [Validators.required, this.mustMatchPasswordValidator.bind(this)]),
     });
 
+    //подписка на данные из NgRx store
     this.stateSubscription = this.store.subscribe((state:any)=>{
-      //console.log('loginPage',state.root.loginPageState, LoginStateEnum.WrongCredentials);
       switch(state.root.loginPageState){
         case LoginStateEnum.Sending:
           this.formLoginVars.isSending=true;
@@ -91,12 +95,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.stateSubscription.unsubscribe();
   }
 
+  //валидатор для проверки одинаковости полей Пароль и Повтор пароля
   mustMatchPasswordValidator():{[s:string]:boolean}{
     if(!this.formRegister)return null;
     if(this.formRegister.get('passwordRepeat').value!==this.formRegister.get('password').value)return {'mustMatch':true};
     return null;
   }
 
+  //submit формы Логина
   formLoginSubmit(){
     this.formLoginVars.messages=[];
     if(this.formLogin.invalid){
@@ -110,6 +116,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  //submit формы Регистрации
   formRegisterSubmit(){
     this.formRegisterVars.messages=[];
     if(this.formRegister.invalid){
@@ -123,12 +130,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     }else{
       this.formRegisterVars.ShowInvalid=false;
+
       this.store.dispatch(new mainActions.RegisterStart({username:this.formRegister.get('name').value, email:this.formRegister.get('email').value, password:this.formRegister.get('password').value}));
     }
-  }
-
-  loginSuccess(idToken){
-    this.server.token = idToken;
-    this.router.navigate(['/transaction']);
   }
 }

@@ -4,6 +4,7 @@ export class TransactionResultModel {
   amount:number;
   balance:number;
   dateVal:Date;
+  id: number;
 
   constructor(){}
 }
