@@ -74,7 +74,7 @@ export class MainEffects {
     ofType(mainActions.LOGGED_USER_INFO_START),
     //tap((action:Action)=>{ console.log('effect', action.type, action) }),
     mergeMap(()=>{
-      return this.server.get('api/protected/user-info').pipe();
+      return this.server.get('api/protected/user-info');
     }),
     map((res:any)=>{
       if(res.badStatus){
@@ -90,7 +90,7 @@ export class MainEffects {
     ofType(mainActions.TRANSACTION_START),
     tap((action:Action)=>{ console.log('effect', action.type, action) }),
     mergeMap((action:mainActions.TransactionStart)=>{
-      return this.server.post('api/protected/transactions', action.payload).pipe();
+      return this.server.post('api/protected/transactions', action.payload);
     }),
     map((res:any)=>{
       if(res.badStatus){
@@ -101,7 +101,6 @@ export class MainEffects {
         else return new mainActions.TransactionFail(NewTransactionStateEnum.Error);
       }
 
-      this.server.token = res.body.id_token;
       return new mainActions.TransactionSuccess({ date:res.body.trans_token.date, dateVal:null, username:res.body.trans_token.username, amount:res.body.trans_token.amount, balance:res.body.trans_token.balance  });
     })
   );

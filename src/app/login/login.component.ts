@@ -124,35 +124,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }else{
       this.formRegisterVars.ShowInvalid=false;
       this.store.dispatch(new mainActions.RegisterStart({username:this.formRegister.get('name').value, email:this.formRegister.get('email').value, password:this.formRegister.get('password').value}));
-      //post register to server
-      /*this.server.post('users', {
-        email:this.formRegister.get('email').value, password:this.formRegister.get('password').value,
-        username:this.formRegister.get('name').value})
-          .subscribe((res:any)=>{
-
-        console.log('register res',res);
-        //returned 400 email already exists
-        if(res.badStatus){
-          console.log('badStatus',res.badStatus);
-          this.formRegisterVars.messages.push('A user with that email already exists');
-        }else{
-          //registered ok
-          this.formRegisterVars.messages.push('Registered successfully');
-
-          //auto login after registration
-          this.server.post('sessions/create', {email:this.formRegister.get('email').value, password:this.formRegister.get('password').value})
-          .subscribe((res:any)=>{
-            //console.log('users res',res);
-            if(res.badStatus){
-              this.formRegisterVars.isSending = false;
-            }else{
-              this.loginSuccess(res.body.id_token);
-            }
-
-            this.formRegisterVars.isSending = false;
-          });
-        }
-      });*/
     }
   }
 
