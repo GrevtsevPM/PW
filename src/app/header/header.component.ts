@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServerService } from '../services/server.service';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,9 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  encapsulation: ViewEncapsulation.None,
+  styleUrls:['./header.component.less']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 

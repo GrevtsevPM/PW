@@ -6,7 +6,7 @@ import * as mainActions from './main.actions';
 import * as mainReducer from './main.reducer';
 import { Store, Action } from '@ngrx/store';
 import { LoginStateEnum, RegisterStateEnum, NewTransactionStateEnum } from '../data-types/enums';
-import { timer, Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { TransactionResultModel } from '../data-types/transaction-result-model';
 
 @Injectable()
@@ -43,9 +43,9 @@ export class MainEffects {
   loginSuccess = this.actions$.pipe(
     ofType(mainActions.LOGIN_SUCCESS, mainActions.REGISTER_SUCCESS),
     map(()=>{
-      // this.updateBalanceTimer = timer(2000,15000).subscribe(()=>{
-      //   this.store.dispatch(new mainActions.LoggedUserInfoStart(null));
-      // });
+      this.updateBalanceTimer = timer(2000,15000).subscribe(()=>{
+        this.store.dispatch(new mainActions.LoggedUserInfoStart(null));
+      });
       return new mainActions.LoggedUserInfoStart(null);
     }));
 

@@ -7,7 +7,6 @@ import {
 } from '@angular/router';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { map, tap, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as mainReducer from './store/main.reducer';
 
