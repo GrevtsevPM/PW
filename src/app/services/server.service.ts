@@ -10,7 +10,13 @@ export class ServerService {
   readonly apiUrl:string='http://193.124.114.46:3001/';
 
   error = new Subject<string>();
-  token:string;
+  set token(t:string) {
+    if(t==null)localStorage.removeItem(t);
+    localStorage.setItem('t',t);
+  }
+  get token():string {
+    return localStorage.getItem('t');
+  }
 
   post(methodName:string, data){
     let headers=this.token===null?new HttpHeaders():new HttpHeaders({ 'Authorization': 'Bearer '+this.token });

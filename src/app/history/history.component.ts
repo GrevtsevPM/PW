@@ -17,13 +17,17 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   stateSubscription: Subscription;
 
+  //история транзакций
   transactions: TransactionResultModel[];
 
   ngOnInit() {
+    //подписка на изменения store
     this.stateSubscription = this.store.subscribe((state:any)=>{
       this.transactions = state.root.loggedUserTransactions;
     });
+
     this.transactions = [];
+    //получение истории транзакций с сервера
     this.store.dispatch(new mainActions.LoggedUserTransactionsStart(null));
   }
 
