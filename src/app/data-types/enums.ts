@@ -14,7 +14,6 @@ export enum RegisterStateEnum {
 
   Sending,
   EmailExists
-
 }
 
 export enum NewTransactionStateEnum {
